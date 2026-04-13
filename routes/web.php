@@ -63,9 +63,9 @@ Route::get('/detaildestinasi/{id}',[DestinationController::class, 'show']);
 Route ::get ("/destinations/create",[DestinationController::class,'create']);
 Route ::post("/destinations",[DestinationController::class,'store']);
 
-Route::delete ('/destination/{id}',[DestinationController::class,'delete']);
+Route::delete ('/destinations/{id}/delete',[DestinationController::class,'delete']);
 Route::get("/destinations/{id}/edit",[DestinationController::class, 'edit']);
-Route::put("/destinations/{id}/edit",[DestinationController::class, 'update']);
+Route::put("/destinations/{id}/update",[DestinationController::class, 'update']);
 
 
 

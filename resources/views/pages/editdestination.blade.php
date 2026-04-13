@@ -2,7 +2,7 @@
 
     @section("content")
 
-<form action ="/destinations/{{$destinatio->id}}/update" method="post" class="form-floating">
+<form action ="/destinations/{{$destination->id}}/update" method="post" class="form-floating">
     @csrf
     @method("put")
 
@@ -17,22 +17,22 @@
 
     </div>
     <div class ="form floating mb -3">
-        <input type="text" class="form-control"id="floatingInput" placeholder="pekanbaru" name="location">value="{{$destination->name}}">
+        <input type="text" class="form-control"id="floatingInput" placeholder="pekanbaru" name="location" value="{{$destination->location}}">
         <label for="location">lokasi</label>
 
     </div>
     <div class ="form floating mb-3">
-        <input type="number" class="form-control" id="floatingInput" placeholder ="100000" name="ticket_price">value="{{$destination->name}}">
+        <input type="number" class="form-control" id="floatingInput" placeholder ="100000" name="ticket_price" value="{{$destination->ticket_price}}">
         <label for="ticket_price">harga Tiket</label>
     
     </div>
     <div class ="form floating mb- 3">
-     <input type="text" class= "form-control"id ="floatingInput" placeholder="08.00- 16.00" name="working_hours">value="{{$destination->name}}">
+     <input type="text" class= "form-control"id ="floatingInput" placeholder="08.00- 16.00" name="working_hours" value="{{$destination->working_hours}}">
       <label for="working_hours">jam operasional</label>
 
     </div>
     <div class="form floating mb- 3">
-     <input type="text" class="form-control" id="floatingInput" placeholder="08.00- 16.00" name="working_days">value="{{$destination->name}}">
+     <input type="text" class="form-control" id="floatingInput" placeholder="08.00- 16.00" name="working_days" value="{{$destination->working_days}}">
       <label for="working_days">Hari operasional</label>
 
     </div>

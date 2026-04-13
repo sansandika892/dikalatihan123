@@ -9,9 +9,17 @@ use Illuminate\Http\Request;
 class DestinationController extends Controller
 
 {
-    public function index()
+    public function index(Request $request)
     {
-        $destinations = Destination::all();
+        
+        $keyword=$request->input(key:'search');
+    
+    if ($keyword!=''){
+        $destinations=destination::where('name', 'LIKE', '%' . $keyword .'%')->paginate(5);
+
+        }else{
+        $destinations=destination::orderby('id')->paginate(5);
+     }
         return view('pages.indexdestinasi', compact('destinations'));
     }
 
@@ -36,7 +44,7 @@ class DestinationController extends Controller
 
      public function delete($id)
     {
-        $destination =Destination ::find ($id);
+        $destination = Destination::find ($id);
         if ($destination){
             $destination -> delete ();
             return redirect (to:'/destinations')-> with(key:'success', value: 'Destiantion delete successfully.');
@@ -62,8 +70,5 @@ public function update (Request $request, $id){
         return redirect('/destinations')->with('error',"destination non found.");
     }
 
-
-        
-    
 }
 }

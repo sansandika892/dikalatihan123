@@ -17,7 +17,7 @@
             <hr>
 
             <p><strong>📍 Lokasi:</strong><br>
-                {{ $destinations->location }}
+                {{ $destinations->lacation }}
             </p>
 
             <p><strong>🗓 Hari Buka:</strong> {{ $destinations->working_days }}</p>
