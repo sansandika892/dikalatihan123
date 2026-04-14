@@ -1,48 +1,64 @@
 @extends("master")
 
-    @section("content")
+@section("content")
 
-<form action ="/destinations/{{$destination->id}}/update" method="post" class="form-floating">
-    @csrf
-    @method("put")
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-4">
+        <div class="card-header bg-warning text-dark text-center">
+            <h4>Edit Destinasi</h4>
+        </div>
 
-    <div class ="form-floating mb-3 ">
-        <input type ="text" class= "form-control"id ="floatingInput" placeholder="Asia Heritage" name ="name" value="{{$destination->name}}">
-        <label for ="floatinginput">nama destinasi</label>
+        <div class="card-body p-4">
+            <form action="/destinations/{{ $destination->id }}/update" method="post">
+                @csrf
+                @method("put")
 
+                <div class="mb-3">
+                    <label class="form-label">Nama Destinasi</label>
+                    <input type="text" class="form-control" name="name"
+                        value="{{ $destination->name }}" placeholder="Contoh: Asia Heritage">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Deskripsi</label>
+                    <textarea name="description" class="form-control" rows="3"
+                        placeholder="Masukkan deskripsi">{{ $destination->description }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Lokasi</label>
+                    <input type="text" class="form-control" name="location"
+                        value="{{ $destination->location }}" placeholder="Contoh: Pekanbaru">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Harga Tiket</label>
+                    <input type="number" class="form-control" name="ticket_price"
+                        value="{{ $destination->ticket_price }}" placeholder="Contoh: 100000">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Jam Operasional</label>
+                        <input type="text" class="form-control" name="working_hours"
+                            value="{{ $destination->working_hours }}" placeholder="08.00 - 16.00">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Hari Operasional</label>
+                        <input type="text" class="form-control" name="working_days"
+                            value="{{ $destination->working_days }}" placeholder="Senin - Minggu">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="/destinations" class="btn btn-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+
+            </form>
+        </div>
     </div>
-    <div class="form-floating mb-3 ">
-        <textarea name="description"id="" class="form-control" placholder="description">{{$destination->description}}</textarea>
-        <label for="description">description</label>
-
-    </div>
-    <div class ="form floating mb -3">
-        <input type="text" class="form-control"id="floatingInput" placeholder="pekanbaru" name="location" value="{{$destination->location}}">
-        <label for="location">lokasi</label>
-
-    </div>
-    <div class ="form floating mb-3">
-        <input type="number" class="form-control" id="floatingInput" placeholder ="100000" name="ticket_price" value="{{$destination->ticket_price}}">
-        <label for="ticket_price">harga Tiket</label>
-    
-    </div>
-    <div class ="form floating mb- 3">
-     <input type="text" class= "form-control"id ="floatingInput" placeholder="08.00- 16.00" name="working_hours" value="{{$destination->working_hours}}">
-      <label for="working_hours">jam operasional</label>
-
-    </div>
-    <div class="form floating mb- 3">
-     <input type="text" class="form-control" id="floatingInput" placeholder="08.00- 16.00" name="working_days" value="{{$destination->working_days}}">
-      <label for="working_days">Hari operasional</label>
-
-    </div>
-    <button type ="submit" class="btn btn-primary">submit</button>
-
-</form>
+</div>
 
 @endsection
-
-
-
-
-

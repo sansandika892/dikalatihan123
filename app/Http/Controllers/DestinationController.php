@@ -11,17 +11,18 @@ class DestinationController extends Controller
 {
     public function index(Request $request)
     {
-        
         $keyword=$request->input(key:'search');
     
     if ($keyword!=''){
         $destinations=destination::where('name', 'LIKE', '%' . $keyword .'%')->paginate(5);
-
         }else{
         $destinations=destination::orderby('id')->paginate(5);
      }
         return view('pages.indexdestinasi', compact('destinations'));
     }
+
+
+
 
     public function show($id)
     {
@@ -34,10 +35,13 @@ class DestinationController extends Controller
         return view('pages.createDestination');
     }
 
+
+
+    
     public function store(Request $request)
     {
        
-        Destination::create($request->all());
+        destination::create($request->all());
         return redirect('/destinations')->with('success', 'Destination created successfully.');
     }
 

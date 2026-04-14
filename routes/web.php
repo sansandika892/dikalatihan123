@@ -3,6 +3,8 @@
 use App\Http\Controllers\DestinationController;
 use App\Models\destination;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,14 +60,23 @@ Route::get(
     action: [DestinationController::class,'index']
 );
 
-Route::get('/detaildestinasi/{id}',[DestinationController::class, 'show']);
-
-Route ::get ("/destinations/create",[DestinationController::class,'create']);
-Route ::post("/destinations",[DestinationController::class,'store']);
-
-Route::delete ('/destinations/{id}/delete',[DestinationController::class,'delete']);
+Route::get ('/detaildestinasi/{id}',[DestinationController::class, 'show']);
+Route::get ("/destinations/create",[DestinationController::class,'create']);
+Route::post("/destinations",[DestinationController::class,'store']);
+Route::delete('/destinations/{id}/delete',[DestinationController::class,'delete']);
 Route::get("/destinations/{id}/edit",[DestinationController::class, 'edit']);
 Route::put("/destinations/{id}/update",[DestinationController::class, 'update']);
 
 
 
+Route::get(
+uri :"/user",);
+
+
+Route::get('/user', [UserController::class, 'index']);      // list
+Route::get ('/detaildestinasi/{id}',[UserController::class, 'show']);// menampilkan
+Route::get('/user/create', [UserController::class, 'create']); // form tambah
+Route::post('/user', [UserController::class, 'store']);     // simpan
+Route::get('/user/{id}/edit', [UserController::class, 'edit']); // form edit
+Route::put('/user/{id}/update', [UserController::class, 'update']); // update
+Route::delete('/user/{id}', [UserController::class, 'destroy']); // hapus

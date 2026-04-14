@@ -46,7 +46,7 @@
 
                         <td> {{ $d->name }} </td>
                         <td> {{ $d->description }} </td>
-                        <td> {{ $d->lacation }} </td>
+                        <td> {{ $d->location }} </td>
                         <td> {{ $d->ticket_price }} </td>
                         <td> {{ $d->working_hours }} </td>
                         <td> {{ $d->working_days }} </td>
