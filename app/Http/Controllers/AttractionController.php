@@ -9,37 +9,47 @@ class AttractionController extends Controller
 {
     public function index() {
         $attractions = Attraction::all();
-        return view('pages.attractions.index',compact('attractions'));
+        return view('pages.attractions.index', compact('attractions'));
     }
 
     public function create(){
-        return view ('pages.attractions.create');
+        return view('pages.attractions.create');
     }
 
     public function store(Request $request) {
-        Attraction::create($request->all());
-        return redirect('pages.attractions.edit',compact ('attractions'));
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        Attraction::create($validated);
+        return redirect('/attractions')->with('success', 'Attraction created successfully');
+    }
+
+    public function show($id) {
+        $attraction = Attraction::findOrFail($id);
+        return view('pages.attractions.show', compact('attraction'));
     }
 
     public function edit($id) {
-        $categories = Attraction::Find($id);
-         return view('pages.attractions.edit',compact('attractions'));
+        $attraction = Attraction::findOrFail($id);
+        return view('pages.attractions.edit', compact('attraction'));
     }
 
     public function update(Request $request, $id) {
-        $attractions = Attraction::find($id);
-        $attractions ->update($request ->all ());
-        return redirect('/attractions')->with('suscess','Data diupdate');
+        $attraction = Attraction::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $attraction->update($validated);
+        return redirect('/attractions')->with('success', 'Data updated successfully');
     }
 
-
-    public function delete ($id) {
-    $attractions = Attraction::find($id);
-    $attractions-> delete();
-      return redirect('/attractions')->with('suscess','Data dihapus');
+    public function destroy($id) {
+        $attraction = Attraction::findOrFail($id);
+        $attraction->delete();
+        return redirect('/attractions')->with('success', 'Data deleted successfully');
     }
-
-
-
-      
 }

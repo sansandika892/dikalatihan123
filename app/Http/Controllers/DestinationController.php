@@ -5,74 +5,63 @@ namespace App\Http\Controllers;
 use App\Models\destination;
 use Illuminate\Http\Request;
 
-
 class DestinationController extends Controller
-
 {
     public function index(Request $request)
     {
-        $keyword=$request->input(key:'search');
+        $keyword = $request->input('search');
     
-    if ($keyword!=''){
-        $destinations=destination::where('name', 'LIKE', '%' . $keyword .'%')->paginate(5);
-        }else{
-        $destinations=destination::orderby('id')->paginate(5);
-     }
-        return view('pages.destinations.destinations.indexdestinasi', compact('destinations'));
+        if ($keyword != '') {
+            $destinations = destination::where('name', 'LIKE', '%' . $keyword . '%')->paginate(5);
+        } else {
+            $destinations = destination::orderBy('id')->paginate(5);
+        }
+        return view('pages.destinations.index', compact('destinations'));
     }
-
-
-
 
     public function show($id)
     {
-        $destinations = Destination::find($id);
-        return view('pages.destinations.destinations.detail', compact('destinations'));
+        $destination = destination::findOrFail($id);
+        return view('pages.destinations.detail', compact('destination'));
     }
 
     public function create()
     {
-        return view('pages.destinations.destinations.createDestination');
+        return view('pages.destinations.create');
     }
 
-
-
-    
     public function store(Request $request)
     {
-       
-        destination::create($request->all());
-        return redirect('/destinations')->with('success', 'Destination created successfully.');
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            // Add other fields as per model
+        ]);
+
+        destination::create($validated);
+        return redirect()->route('destinations.index')->with('success', 'Destination created successfully.');
     }
 
+    public function edit($id){
+        $destination = destination::findOrFail($id);
+        return view('pages.destinations.edit', compact('destination'));
+    }
 
-     public function delete($id)
+    public function update(Request $request, $id){
+        $destination = destination::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $destination->update($validated);
+        return redirect()->route('destinations.index')->with('success', 'Destination updated successfully.');
+    }
+
+    public function delete($id)
     {
-        $destination = Destination::find ($id);
-        if ($destination){
-            $destination -> delete ();
-            return redirect (to:'/destinations')-> with(key:'success', value: 'Destiantion delete successfully.');
-        }else{
-            return redirect(to:'/destination') -> with(key :'error',value:'Destination for found.');
-
-        }
+        $destination = destination::findOrFail($id);
+        $destination->delete();
+        return redirect()->route('destinations.index')->with('success', 'Destination deleted successfully.');
     }
-      
-
-    
- public function edit($id){
-        $destination = Destination::find($id);
-        return view('pages.destinations.destinations.editDestination', compact('destination'));
-        
-    }
-public function update (Request $request, $id){
-    $destination=Destination::find($id);
-    if ($destination){
-        $destination->update($request->all());
-        return redirect('/destinations')->with('success',"destination  update successfully.");
-     } else{
-        return redirect('/destinations')->with('error',"destination non found.");
-    }
-
-}
 }
