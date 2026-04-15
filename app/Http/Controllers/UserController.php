@@ -18,7 +18,7 @@ class UserController extends Controller
         }else{
         $user=user::orderby('id')->paginate(5);
      }
-        return view('pages.indexuser', compact('user'));
+        return view('pages.destinations.user.indexuser', compact('user'));
     }
 
 
@@ -27,12 +27,13 @@ class UserController extends Controller
     public function show($id)
     {
         $User = User::find($id);
-        return view('pages.detail', compact('user'));
+        return view('pages.destinations.user.detail', compact('user'));
     }
 
     public function create()
     {
-        return view('pages.createuser');
+        return view('pages.destinations.user.createuser');
+        
     }
 
 
@@ -42,7 +43,8 @@ class UserController extends Controller
     {
        
         User::create($request->all());
-        return redirect('/user')->with('success', 'user created successfully.');
+        return redirect(route('user.index'))->with('success', 'user created successfully.');
+        
     }
 
 
@@ -62,7 +64,7 @@ class UserController extends Controller
     
  public function edit($id){
         $user = User::find($id);
-        return view('pages.edituser', compact('user'));
+        return view('pages.destinations.user.edituser', compact('user'));
         
     }
 public function update (Request $request, $id){

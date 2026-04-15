@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttractionController;
 use App\Http\Controllers\DestinationController;
 use App\Models\destination;
 use Illuminate\Support\Facades\Route;
@@ -55,28 +56,64 @@ Route::get("/destinasi", function () {
 // });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::prefix("destinations")->name("destinations.")->group(function(){
 Route::get(
-    uri :"/destinations",
+    uri :"/",
     action: [DestinationController::class,'index']
-);
+)->name('index');
 
-Route::get ('/detaildestinasi/{id}',[DestinationController::class, 'show']);
-Route::get ("/destinations/create",[DestinationController::class,'create']);
-Route::post("/destinations",[DestinationController::class,'store']);
-Route::delete('/destinations/{id}/delete',[DestinationController::class,'delete']);
-Route::get("/destinations/{id}/edit",[DestinationController::class, 'edit']);
-Route::put("/destinations/{id}/update",[DestinationController::class, 'update']);
+Route::get ('/detaildestinasi/{id}',[DestinationController::class, 'show'])->name("show");
+Route::get ("/create",[DestinationController::class,'create'])->name("create");
+Route::post("/",[DestinationController::class,'store'])->name("store");
+Route::delete('/{id}/delete',[DestinationController::class,'delete'])->name("delete");
+Route::get("/{id}/edit",[DestinationController::class, 'edit'])->name("edit");
+Route::put("/{id}/update",[DestinationController::class, 'update'])->name("update");
+
+});
 
 
 
+
+
+
+Route::prefix("users")->name("user.")->group(function(){
 Route::get(
-uri :"/user",);
+uri :"/",
+   action: [UserController::class,'index']
+);
+Route::get('/user', [UserController::class, 'index'])->name("index");     // list
+Route::get ('/detailuser/{id}',[UserController::class, 'show'])->name("show");// menampilkan
+Route::get('/user/create', [UserController::class, 'create'])->name("create"); // form tambah
+Route::post('/user', [UserController::class, 'store'])->name("store");    // simpan
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name("edit"); // form edit
+Route::put('/user/{id}/update', [UserController::class, 'update'])->name("update"); // update
+Route::delete('/user/{id}', [UserController::class, 'destroy'])->name("destroy"); // hapus
+Route::delete('/{id}/delete',[userController::class,'delete'])->name("delete");
+});
 
 
-Route::get('/user', [UserController::class, 'index']);      // list
-Route::get ('/detaildestinasi/{id}',[UserController::class, 'show']);// menampilkan
-Route::get('/user/create', [UserController::class, 'create']); // form tambah
-Route::post('/user', [UserController::class, 'store']);     // simpan
-Route::get('/user/{id}/edit', [UserController::class, 'edit']); // form edit
-Route::put('/user/{id}/update', [UserController::class, 'update']); // update
-Route::delete('/user/{id}', [UserController::class, 'destroy']); // hapus
+
+use App\Http\Controllers\CategoryController; 
+
+Route::prefix("attractions")->name("attractions.")->group(function(){
+Route::get('/attractions', [AttractionController::class, 'index']);
+Route::get('/attractions/create', [AttractionController::class, 'create']);
+Route::post('/attractions/store', [AttractionController::class, 'store']);
+Route::get('/attractions/{id}/edit', [AttractionController::class, 'edit']);
+Route::put('/attractions/{id}/update', [AttractionController::class, 'update']);
+Route::delete('/attractions/{id}/delete', [AttractionController::class, 'delete']);
+});

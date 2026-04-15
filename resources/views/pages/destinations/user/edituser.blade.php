@@ -10,7 +10,7 @@
 
         <div class="card-body p-4">
 
-            <form action="/user/{{$user->id}}/update" method="post">
+            <form action="{{route('user.update',$user->id)}}" method="post">
                 @csrf
                 @method("PUT")
 

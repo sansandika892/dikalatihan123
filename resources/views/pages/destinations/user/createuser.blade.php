@@ -9,7 +9,7 @@
         </div>
 
         <div class="card-body p-4">
-            <form action="/user" method="post">
+            <form action="{{route('user.store')}}" method="post">
                 @csrf
 
                 <div class="mb-3">
