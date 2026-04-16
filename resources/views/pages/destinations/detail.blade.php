@@ -6,7 +6,7 @@
     <div class="card shadow-lg border-0 mb-4">
         
         {{-- Gambar --}}
-        <img src="{{ $d->image ?? 'https://via.placeholder.com/1200x400' }}" 
+        <img src="{{ $d->image ?? 'https://wallpapercave.com/wp/wp2973184.jpg' }}" 
              class="card-img-top" 
              style="height: 350px; object-fit: cover;">
 

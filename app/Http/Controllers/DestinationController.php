@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\destination;
+use App\Models\Destination;
 use Illuminate\Http\Request;
 
 class DestinationController extends Controller
@@ -12,17 +12,17 @@ class DestinationController extends Controller
         $keyword = $request->input('search');
     
         if ($keyword != '') {
-            $destinations = destination::where('name', 'LIKE', '%' . $keyword . '%')->paginate(5);
+            $destinations = Destination::where('name', 'LIKE', '%' . $keyword . '%')->paginate(5);
         } else {
-            $destinations = destination::orderBy('id')->paginate(5);
+            $destinations = Destination::orderBy('id')->paginate(5);
         }
         return view('pages.destinations.index', compact('destinations'));
     }
 
     public function show($id)
     {
-        $destination = destination::findOrFail($id);
-        return view('pages.destinations.detail', compact('destination'));
+        $destinations = Destination::findOrFail($id);
+        return view('pages.destinations.detail', compact('destinations'));
     }
 
     public function create()
@@ -35,23 +35,31 @@ class DestinationController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'location' => 'required|string|max:255',
+            'working_days' => 'required|string|max:255',
+            'working_hours' => 'required|string|max:255',
+            'ticket_price' => 'required|numeric',
             // Add other fields as per model
         ]);
 
-        destination::create($validated);
+        Destination::create($validated);
         return redirect()->route('destinations.index')->with('success', 'Destination created successfully.');
     }
 
     public function edit($id){
-        $destination = destination::findOrFail($id);
+        $destination = Destination::findOrFail($id);
         return view('pages.destinations.edit', compact('destination'));
     }
 
     public function update(Request $request, $id){
-        $destination = destination::findOrFail($id);
+        $destination = Destination::findOrFail($id);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'location' => 'required|string|max:255',
+            'working_days' => 'required|string|max:255',
+            'working_hours' => 'required|string|max:255',
+            'ticket_price' => 'required|numeric',
         ]);
 
         $destination->update($validated);
@@ -60,7 +68,7 @@ class DestinationController extends Controller
 
     public function delete($id)
     {
-        $destination = destination::findOrFail($id);
+        $destination = Destination::findOrFail($id);
         $destination->delete();
         return redirect()->route('destinations.index')->with('success', 'Destination deleted successfully.');
     }

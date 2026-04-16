@@ -12,6 +12,52 @@
                 <div class="card-body">
                     <form action="{{ route('attractions.update', $attraction->id) }}" method="POST">
                         @csrf
+
+
+
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Destination</label>
+                        <select name="destination_id" class="form-select @error('destination_id') is    -invalid @enderror"
+                            required>
+                            <option value="">Select Destination</option>
+                            @foreach ($destinations as $destination)
+                                <option value="{{ $destination->id }}"
+                                    {{ old('destination_id', $attraction->destination_id) == $destination->id ? 'selected' : '' }}>
+                                    {{ $destination->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('destination_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         @method('PUT')
                         <div class="mb-3">
                             <label class="form-label">Name</label>

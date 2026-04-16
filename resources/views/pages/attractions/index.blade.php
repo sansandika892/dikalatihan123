@@ -10,6 +10,15 @@
 
         <div class="d-flex justify-content-between mb-3">
             <h2>List of Attractions</h2>
+            <form action="{{ route('attractions.index') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control"placeholder="search..." name="search"
+                        value="{{ request('search') }}">
+                    <button class ="btn btn-outline-secondary"type="submit">search</button>
+
+                </div>
+            </form>
+
             <a class="btn btn-primary" href="{{ route('attractions.create') }}">Add Attraction</a>
         </div>
 
@@ -31,17 +40,21 @@
                         <td>{{ Str::limit($attraction->description, 50) }}</td>
                         <td>{{ $attraction->created_at->format('Y-m-d H:i') }}</td>
                         <td>
-                            <a href="{{ route('attractions.edit', $attraction->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('attractions.destroy', $attraction->id) }}" method="POST" style="display: inline;">
+                            <a href="{{ route('attractions.edit', $attraction->id) }}"
+                                class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('attractions.destroy', $attraction->id) }}" method="POST"
+                                style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center">No attractions found. <a href="{{ route('attractions.create') }}">Create one</a>.</td>
+                        <td colspan="5" class="text-center">No attractions found. <a
+                                href="{{ route('attractions.create') }}">Create one</a>.</td>
                     </tr>
                 @endforelse
             </tbody>

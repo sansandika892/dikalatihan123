@@ -5,11 +5,11 @@ use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\UserController;
 use App\Models\destination;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 // Static routes
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 Route::get("/halo", function () {
     $name = "Rozi";

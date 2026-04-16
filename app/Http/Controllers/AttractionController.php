@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attraction;
+use App\Models\Destination;
 
 class AttractionController extends Controller
 {
@@ -13,14 +14,22 @@ class AttractionController extends Controller
     }
 
     public function create(){
-        return view('pages.attractions.create');
+        
+        $destinations = Destination::all();
+        return view('pages.attractions.create', compact('destinations'));
+
     }
 
     public function store(Request $request) {
-        $validated = $request->validate([
+        
+            $validated = $request->validate([
+            'destination_id' => 'required',
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
+            'description' => 'nullable',
+            ]);
+
+
+    
 
         Attraction::create($validated);
         return redirect('/attractions')->with('success', 'Attraction created successfully');
@@ -28,23 +37,28 @@ class AttractionController extends Controller
 
     public function show($id) {
         $attraction = Attraction::findOrFail($id);
-        return view('pages.attractions.show', compact('attraction'));
+
+        $destination = Destination:: all();
+       
+        return view('pages.attractions.show', compact('attraction', 'destination'));
     }
 
     public function edit($id) {
+        $destinations = Destination::all();
+        
         $attraction = Attraction::findOrFail($id);
-        return view('pages.attractions.edit', compact('attraction'));
+        return view('pages.attractions.edit', compact('attraction', 'destinations'));
     }
 
     public function update(Request $request, $id) {
-        $attraction = Attraction::findOrFail($id);
         $validated = $request->validate([
+
+            'destination_id' => 'required|exists:destinations,id',
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable',
         ]);
 
-        $attraction->update($validated);
-        return redirect('/attractions')->with('success', 'Data updated successfully');
+        
     }
 
     public function destroy($id) {
