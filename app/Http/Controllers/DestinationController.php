@@ -39,6 +39,7 @@ class DestinationController extends Controller
             'working_days' => 'required|string|max:255',
             'working_hours' => 'required|string|max:255',
             'ticket_price' => 'required|numeric',
+            'image' => 'nullable|string|max:2048 mines:jpg,,jpeg,png',
             // Add other fields as per model
         ]);
 

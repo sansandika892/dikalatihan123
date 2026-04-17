@@ -44,11 +44,20 @@
                     <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
                         Admin
                     </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/hotels">Hotels</a>
+                </li>
 
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/login">Login</a></li>
-                        <li><a class="dropdown-item" href="/register">Register</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="/review">Review</a>
+                </li>
+
+
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/login">Login</a></li>
+                    <li><a class="dropdown-item" href="/register">Register</a></li>
+                </ul>
                 </li>
 
             </ul>
@@ -56,4 +65,3 @@
 
     </div>
 </nav>
-

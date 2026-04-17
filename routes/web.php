@@ -24,6 +24,7 @@ Route::get("/switch", function () {
 
 Route::get("/master", function () {
     return view('pages.home');
+    return view('pages.hotels');
 });
 
 Route::get("/about", function () {
@@ -53,6 +54,7 @@ Route::prefix("destinations")->name("destinations.")->group(function(){
     Route::get("/{id}/edit", [DestinationController::class, 'edit'])->name("edit");
     Route::put("/{id}/update", [DestinationController::class, 'update'])->name("update");
     Route::delete("/{id}/delete", [DestinationController::class, 'delete'])->name("delete");
+    Route::delete('/destinations/{id}/delete', [DestinationController::class,'destroy'])->name('destinations.destroy');
 });
 
 // Users
@@ -77,3 +79,23 @@ Route::prefix("attractions")->name("attractions.")->group(function(){
     Route::put("/{id}", [AttractionController::class, 'update'])->name('update');
     Route::delete("/{id}", [AttractionController::class, 'destroy'])->name('destroy');
 });
+
+
+
+
+use App\Http\Controllers\ReviewController;
+
+Route::get('/review', [ReviewController::class, 'index']);
+Route::get('/review/create', [ReviewController::class, 'create']);
+Route::post('/review/store', [ReviewController::class, 'store']);
+
+
+
+use App\Http\Controllers\HotelsController;
+
+Route::get('/hotels', [HotelsController::class,'index']);
+Route::get('/hotels/create', [HotelsController::class,'create']);
+Route::post('/hotels/store', [HotelsController::class,'store']);
+Route::get('/hotels/{id}/edit', [HotelsController::class,'edit']);
+Route::put('/hotels/{id}/update', [HotelsController::class,'update']);
+Route::delete('/hotels/{id}/delete', [HotelsController::class,'delete']);

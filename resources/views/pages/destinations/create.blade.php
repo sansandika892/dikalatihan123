@@ -12,6 +12,10 @@
                     {{ session('success') }}
             </div>
         @endif
+
+
+
+        <form action="{{ route('destinations.store') }}" method="post" enctype="multipart/form-data">
         <div class="card shadow-lg rounded-4">
             <div class="card-header bg-primary text-white text-center">
                 <h4>Tambah Destinasi</h4>

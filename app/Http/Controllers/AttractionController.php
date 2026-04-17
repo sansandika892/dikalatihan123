@@ -8,8 +8,15 @@ use App\Models\Destination;
 
 class AttractionController extends Controller
 {
-    public function index() {
-        $attractions = Attraction::all();
+    public function index(Request $request) 
+    {   $keyword = $request->input('search');
+    if ($keyword!='') {
+        $attractions = Attraction::where('name', 'like', "%$keyword%")->paginate(5);
+        }else{$attractions = Attraction::orderby('id')->paginate(5);
+        }
+        
+       
+
         return view('pages.attractions.index', compact('attractions'));
     }
 
@@ -56,7 +63,12 @@ class AttractionController extends Controller
             'destination_id' => 'required|exists:destinations,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable',
+
         ]);
+        
+        $attraction =\App\Models\Attraction::findOrFail($id);
+        $attraction->update($validated);
+        return redirect('/attractions')->with('success', 'Attraction updated successfully');
 
         
     }

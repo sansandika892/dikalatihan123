@@ -62,7 +62,7 @@ class Destinationseeder extends Seeder
         'working_hours'=>"09.00–18.00",
         'ticket_price'=>"80000",
     ]);
-    for ($i= 1; $i<=500;$i++){
+    for ($i= 1; $i<=200;$i++){
         Destination::create([
             'name'=>fake(locale:"id_ID")->name(),
              'description'=>fake(locale:"id_ID")->sentence(),
