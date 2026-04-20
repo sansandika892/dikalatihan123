@@ -59,6 +59,10 @@
                     <li><a class="dropdown-item" href="/register">Register</a></li>
                 </ul>
                 </li>
+<form action="{{route('logout')}}"method="POST" >
+@csrf
+<button type="submit"class="btn btn-outline-light rounded-pill px-4 fw-bold">logout</button>
+</form>
 
             </ul>
         </div>

@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 use App\Http\Controllers\AttractionController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\UserController;
@@ -46,6 +45,15 @@ Route::get("/destinasi", function () {
 });
 
 // Destinations
+
+require __DIR__."/auth.php";
+
+Route::get('/dashboard',function(){
+    return redirect()->route('destinations.index'); 
+    })->middleware(['auth','verified'])->name('dashboard');
+
+
+
 Route::prefix("destinations")->name("destinations.")->group(function(){
     Route::get("/", [DestinationController::class, 'index'])->name('index');
     Route::get("/detaildestinasi/{id}", [DestinationController::class, 'show'])->name("show");
@@ -55,6 +63,8 @@ Route::prefix("destinations")->name("destinations.")->group(function(){
     Route::put("/{id}/update", [DestinationController::class, 'update'])->name("update");
     Route::delete("/{id}/delete", [DestinationController::class, 'delete'])->name("delete");
     Route::delete('/destinations/{id}/delete', [DestinationController::class,'destroy'])->name('destinations.destroy');
+ 
+    
 });
 
 // Users

@@ -38,10 +38,17 @@ class DestinationController extends Controller
             'location' => 'required|string|max:255',
             'working_days' => 'required|string|max:255',
             'working_hours' => 'required|string|max:255',
-            'ticket_price' => 'required|numeric',
-            'image' => 'nullable|string|max:2048 mines:jpg,,jpeg,png',
+            'ticket_price' => 'required|string|max:255',
+            'image' => 'nullable|image|max:2048|mimes:jpg,jpeg,png',
+            
             // Add other fields as per model
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $validated['image'] = basename($imagePath);
+        }
+
 
         Destination::create($validated);
         return redirect()->route('destinations.index')->with('success', 'Destination created successfully.');
@@ -54,6 +61,7 @@ class DestinationController extends Controller
 
     public function update(Request $request, $id){
         $destination = Destination::findOrFail($id);
+       
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -61,10 +69,29 @@ class DestinationController extends Controller
             'working_days' => 'required|string|max:255',
             'working_hours' => 'required|string|max:255',
             'ticket_price' => 'required|numeric',
+            'image' => 'nullable|image|max:2048|mimes:jpg,jpeg,png',
         ]);
+ 
+        $destination=Destination::find($id);
+        if ($destination) {
+            if($destination->image && $request ->hasfile('image')){
+                Storage ::disk('public')->delete('images/'.destination->image);    
 
-        $destination->update($validated);
-        return redirect()->route('destinations.index')->with('success', 'Destination updated successfully.');
+            }
+
+            if($request->hasFile('image')){
+                $imagePath=$request->file('image')->store('images','public');
+                $validated['image']=basename($imagePath);
+            
+            }
+
+
+            $destination->update($validated);
+            return redirect( '/destinations')->with('success','Destination update success');
+        }else{
+
+        return redirect('/destinations')->with('error','Destination non found');
+        }
     }
 
     public function delete($id)
